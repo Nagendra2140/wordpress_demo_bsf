@@ -1,0 +1,37 @@
+name: Deploy PHP/WordPress Application
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy via SSH
+        run: |
+          # Enable error checking (stop script execution on error)
+          set -e
+
+          # Log the script output for debugging purposes
+          exec > >(tee /var/log/wordpress_deployment.log) 2>&1
+
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'ENDSSH'
+
+          # Change to the directory where your application is hosted
+          cd /var/www/wordpress.nanisys.online/wordpress_demo_bsf
+
+          # Pull the latest changes from the repository
+          git pull origin master
+
+          ENDSSH
