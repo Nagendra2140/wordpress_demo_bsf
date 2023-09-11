@@ -18,17 +18,29 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy via SSH
+      - name: Backup Old Code
         run: |
-          # Enable error checking (stop script execution on error)
-          set -e
-
-          # Log the script output for debugging purposes
-          exec > >(tee /var/log/wordpress_deployment.log) 2>&1
-
+          # SSH into the server
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'ENDSSH'
 
-          # Change to the directory where your application is hosted
+            # Change to the application directory
+            cd /var/www/wordpress.nanisys.online/wordpress_demo_bsf
+
+            # Create a timestamp for the backup
+            backup_timestamp=$(date +"%Y%m%d%H%M%S")
+
+            # Zip the old code and move it to the backup directory
+            zip -r "/opt/backups/wordpress_${backup_timestamp}.zip" .
+
+          ENDSSH
+
+      - name: Deploy New code via SSH
+        run: |
+
+          # SSH into the server
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'ENDSSH'
+            
+          # Change to the application directory
           cd /var/www/wordpress.nanisys.online/wordpress_demo_bsf
 
           # Pull the latest changes from the repository
