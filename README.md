@@ -2,9 +2,9 @@
 wordpress Demo website for bsf
 
 ## Prerequisites
-  > Server
-  > GitHub account
-  > Domain
+Server
+GitHub account
+Domain
 ## Server Setup
 we need to install required dependencies to host the wordpress apllication.
 1. Nginx
