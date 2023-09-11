@@ -27,7 +27,7 @@ jobs:
             cd /var/www/wordpress.nanisys.online/wordpress_demo_bsf
 
             # Create a timestamp for the backup
-            backup_timestamp=$(date +"%Y%m%d%H%M%S")
+            backup_timestamp=$(date +"%Y-%m-%d-%H-%M-%S")
 
             # Zip the old code and move it to the backup directory
             zip -r "/opt/backups/wordpress_${backup_timestamp}.zip" .
