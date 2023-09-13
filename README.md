@@ -5,6 +5,9 @@ wordpress Demo website for bsf
 1. Server Ubuntu(22.04).
 2. GitHub account.
 3. Domain.
+## Domain setup
+After launching the server we need to assign domain to that server IP
+we need to create one A record with that server IP
 ## Server Setup
 we need to install required dependencies to host the wordpress apllication.
 ### 1. Nginx
