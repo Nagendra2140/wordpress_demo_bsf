@@ -6,8 +6,8 @@ wordpress Demo website for bsf
 2. GitHub account.
 3. Domain.
 ## Domain setup
-1. After launching the server we need to assign domain to that server IP
-2. we need to create one A record with that server IP
+1. After launching the server we need to assign domain to that server IP.
+2. we need to create one A record with that server IP.
 ## Server Setup
 we need to install required dependencies to host the wordpress apllication.
 ### 1. Nginx
